@@ -37,6 +37,14 @@ function ChatPage() {
     if (status === "ready") setInitial(messages);
   }, [messages, status, setInitial]);
 
+  useEffect(() => {
+    const queued = sessionStorage.getItem("aria.runPrompt");
+    if (queued) {
+      sessionStorage.removeItem("aria.runPrompt");
+      setInput(queued);
+    }
+  }, []);
+
   const scroller = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   useEffect(() => {
